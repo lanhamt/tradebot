@@ -35,12 +35,11 @@ def connect():
 
 def main():
     print("starting tradebot...")
-    while True:
-        try:
-            exchange = connect()
-            trade(exchange)
-        except:
-            print("  could not connect, retrying")
+    try:
+        exchange = connect()
+        trade(exchange)
+    except:
+        print("  could not connect, retrying")
 
 
 if __name__ == '__main__':
