@@ -18,7 +18,7 @@ def main():
     print('The exchange replied:', hello_from_exchange, file=sys.stderr)
     id_no = 0
     while True:
-    	print('ADD ' + str(id_no) + ' BOND BUY 999 10', file=exchange)
+#    	print('ADD ' + str(id_no) + ' BOND BUY 999 10', file=exchange)
 #        print('ADD ' + str(id_no) + ' BOND SELL 1001 1', file=exchange)
     	id_no += 1
         time.sleep(.08)
