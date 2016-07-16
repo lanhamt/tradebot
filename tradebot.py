@@ -26,8 +26,16 @@ class Order:
         self.Price = Price
         self.Size = Size
 
+
     def getOrderString(self):
-        return json.dumps("{'type': '%s', 'order_id': %s, 'symbol': '%s', 'dir': '%s', 'price': %s, 'size': %s}" % (self.Type, self.Order_Id, self.Symbol, self.Dir, self.Price, self.Size))
+        ret = {}
+        ret['type'] = self.Type
+        ret['order_id'] = self.Order_Id
+        ret['symbol'] = self.Symbol
+        ret['dir'] = self.Dir
+        ret['price'] = self.Price
+        ret['size'] = self.Size
+        return json.dumps(ret)
 
 
 def bondTrader(exchange):
