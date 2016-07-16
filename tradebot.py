@@ -42,11 +42,12 @@ def bondBuyExec(prices):
     price = prices.getStockSell('BOND')
     if price[0] < 1000:
         order = Order('add', 0, 'BOND', 'BUY', price[0], price[1])
-        print(json.dumps(order.getOrderString()), file=prices.exchange)
-        print(json.dumps(order.getOrderString()))
+        print(order.getOrderString(), file=prices.exchange)
+        print(order.getOrderString())
 
 
 def bondBuyCond(prices):
+    return True
     if prices.getStockSell('BOND')[0] < 1000:
         return True
     return False
@@ -57,7 +58,7 @@ def bondSellExec(prices):
 
 
 def bondSellCond(prices):
-    pass
+    if prices.getStockBuy('BOND') 
 
 
 def registerAlgos(prices):
