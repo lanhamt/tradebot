@@ -1,4 +1,5 @@
 import sys
+
 class Stock:
 	def __init__(self, name, ETF=False, members=[], sellPrice=(float('inf'), 0), buyPrice=(0, 0)):
 		self.name = name
