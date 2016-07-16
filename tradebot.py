@@ -40,10 +40,10 @@ def bondTrader(exchange):
 
 def bondBuyExec(prices):
     price = prices.getStockSell('BOND')
-    if price[0] < 1000:
-        order = Order('add', 0, 'BOND', 'BUY', price[0], price[1])
-        print(order.getOrderString(), file=prices.exchange)
-        print(order.getOrderString())
+    #if price[0] < 1000:
+    order = Order('add', 0, 'BOND', 'BUY', price[0], price[1])
+    print(order.getOrderString(), file=prices.exchange)
+    print(order.getOrderString())
 
 
 def bondBuyCond(prices):
