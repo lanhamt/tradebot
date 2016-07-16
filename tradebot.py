@@ -17,7 +17,8 @@ class Order:
     o_id = 0
     def __init__(self, Type='', Order_Id=0, Symbol='', Dir='', Price='', Size=''):
         self.Type = Type
-        self.Order_Id = (o_id += 1)
+        self.Order_Id = o_id
+        o_id += 1
         self.Symbol = Symbol
         self.Dir = Dir
         self.Price = Price
