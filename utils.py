@@ -64,10 +64,12 @@ def processBookJSON(msg, prices):
 	name = msg['symbol']
 	buyPrices = msg['buy']
 	sellPrices = msg['sell']
-	bestBuyPrice = sorted(buyPrices, key=lambda price: price[0])[len(buyPrices) - 1]
-	bestSellPrice = sorted(sellPrices, key=lambda price: price[0])[0]
-	prices.setStockBuy(name, bestBuyPrice)
-	prices.setStockSell(name, bestSellPrice)
+	if (len(buyPrices) > 0):
+		bestBuyPrice = sorted(buyPrices, key=lambda price: price[0])[len(buyPrices) - 1]
+		prices.setStockBuy(name, bestBuyPrice)
+	if(len(sellPrices) > 0)
+		bestSellPrice = sorted(sellPrices, key=lambda price: price[0])[0]
+		prices.setStockSell(name, bestSellPrice)
 	prices.checkEvents(name)
 
 def processMsg(msg, prices):
