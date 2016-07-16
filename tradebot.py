@@ -52,7 +52,7 @@ def bondBuyCond(prices):
     return False
 
 
-def bondSell(prices):
+def bondSellExec(prices):
     pass
 
 
