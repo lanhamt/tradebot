@@ -4,7 +4,12 @@ class Stock:
 	members = []
 	sellPrice = 0
 	buyPrice = 0
-	def __init__(self, name, ETF = False, members = [], sellPrice = (float('inf'), 0), buyPrice = (0, 0))
+	def __init__(self, name, ETF=False, members=[], sellPrice=(float('inf'), 0), buyPrice=(0, 0)):
+		self.name = name
+		self.ETF = ETF
+		self.members = members
+		self.sellPrice = sellPrice
+		self.buyPrice = buyPrice
 
 class Event:
 	triggerStocks = []
