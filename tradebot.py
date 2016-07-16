@@ -67,10 +67,9 @@ def trade(exchange):
     id_no = 0
     # threading.Thread(target=bondTrader, args=(exchange, ))
     while True:
-        flowLock.acquire()
         response = exchange.readline().strip()
-        flowLock.release()
         response = json.loads(response)
+        utils.processMsg(response, prices)
         if response['type'] != 'book' and response['type'] != 'trade':
             print(response)
 
