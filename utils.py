@@ -1,10 +1,10 @@
 class Stock:
-	name = ""
+	name = ''
 	ETF = False
 	members = []
 	sellPrice = 0
 	buyPrice = 0
-	def __init__(self, name, ETF = False, members = [], sellPrice = 0, buyPrice = 0)
+	def __init__(self, name, ETF = False, members = [], sellPrice = (float('inf'), 0), buyPrice = (0, 0))
 
 class Event:
 	triggerStocks = []
@@ -54,36 +54,36 @@ class Prices:
 					event.actionFunc(self)
 	def __init__(self, exchange):
 		self.exchange = exchange
-		self.stocks["BOND"] = stock("BOND")
-		self.stocks["VALBZ"] = stock("VALBZ", True, [("VALE", 1)])
-		self.stocks["VALE"] = stock("VALE", True, [("VALBZ", 1)])
-		self.stocks["GS"] = stock("GS")
-		self.stocks["MS"] = stock("MS")
-		self.stocks["WFC"] = stock("WFC")
-		self.stocks["XLF"] = stock("XLF", True, [("BOND", 3), ("GS", 2), ("MS", 3), ("WFC", 2)])
+		self.stocks['BOND'] = stock('BOND')
+		self.stocks['VALBZ'] = stock('VALBZ', True, [('VALE', 1)])
+		self.stocks['VALE'] = stock('VALE', True, [('VALBZ', 1)])
+		self.stocks['GS'] = stock('GS')
+		self.stocks['MS'] = stock('MS')
+		self.stocks['WFC'] = stock('WFC')
+		self.stocks['XLF'] = stock('XLF', True, [('BOND', 3), ('GS', 2), ('MS', 3), ('WFC', 2)])
 
 
 def processBookJSON(msg, prices):
-	name = msg.symbol
-	buyPrices = msg.buy
-	sellPrices = msg.sell
+	name = msg['symbol']
+	buyPrices = msg['buy']
+	sellPrices = msg['sell']
 	bestBuyPrice = sorted(buyPrices, key=lambda price: price[0])[len(buyPrices) - 1]
 	bestSellPrice = sorted(sellPrices, key=lambda price: price[0])[0]
 	prices.setStockBuy(name, bestBuyPrice)
 	prices.setStockSell(name, bestSellPrice)
 
 def processMsg(msg, prices):
-	if msg.type == "book":
+	if msg['type'] == 'book':
 		processBookJSON(msg, prices)
 
 def testFunc(prices):
 	return True
 
 def buyBonds(prices):
-	print("BUYING", file=prices.exchange)
+	print('BUYING', file=prices.exchange)
 
 def registerStockEvents(prices):
-	prices.registerEvent(["BOND"], testFunc, buyBonds)
+	prices.registerEvent(['BOND'], testFunc, buyBonds)
 
 
 def demo():
@@ -93,9 +93,9 @@ def demo():
 		msg = getServerMsg()
 		processMsg(msg)
 
-"""
+'''
 Get server message
 updateDB
 check if action is available
 take action
-"""
+'''
