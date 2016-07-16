@@ -15,6 +15,20 @@ import (
     "net"
 )
 
+type ClientMessage struct {
+    Type string
+    Team string
+    Order_Id int
+    Symbol string
+    Dir string
+}
+
+type ServerMessage struct {
+    Type string
+    Symbol string
+    
+}
+
 func handleConnection(c net.Conn) {
     d : json.NewDecoder(c)
 
