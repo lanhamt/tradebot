@@ -34,7 +34,7 @@ def bondBuyCond(prices):
 
 
 def registerAlgos(prices):
-    prices.registerEvent(['BOND'], bondBuyCond, )
+    prices.registerEvent(['BOND'], bondBuyCond, bondBuyExec)
 
 
 def sayHello(exchange):
