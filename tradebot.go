@@ -44,16 +44,26 @@ func listen() {
 
 func connectToServer() {
     for {
-        fmt.Print("  connecting to server...")
+        fmt.Println("  connecting to server...")
         ln, err := net.Listen("tcp", "test-exch-SEGFAULT:2000")
         if err != nil {
             fmt.Println(err)
             return
         }    
+        for {
+        // accept connection
+        c, err := ln.Accept()
+        if err != nil {
+            fmt.Println(err)
+            continue
+        }
+        // handle connection
+            go handleServerConnection(c)
+        }
     }
 }
 
 func main() {
-    fmt.Print("tradebot starting up...")
+    fmt.Println("tradebot starting up...")
     connectToServer()
 }
