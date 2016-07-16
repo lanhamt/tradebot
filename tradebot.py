@@ -58,7 +58,7 @@ def bondSellExec(prices):
 
 
 def bondSellCond(prices):
-    if prices.getStockBuy('BOND') 
+    pass # if prices.getStockBuy('BOND') 
 
 
 def registerAlgos(prices):
