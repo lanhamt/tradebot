@@ -21,7 +21,7 @@ def trade(exchange):
     while True:
         response = exchange.readline().strip()
         response = json.loads(response)
-        if response['type'] != 'book':
+        if response['type'] != 'book' and response['type'] != 'trade':
             print(response)
 #        print('ADD ' + str(id_no) + ' BOND BUY 999 10', file=exchange)
 #        print('ADD ' + str(id_no) + ' BOND SELL 1001 1', file=exchange)
