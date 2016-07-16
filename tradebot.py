@@ -3,7 +3,8 @@ from __future__ import print_function
 
 import sys
 import socket
-import rand
+import random
+import time
 
 def connect():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -15,10 +16,12 @@ def main():
     print("HELLO TEAMNAME", file=exchange)
     hello_from_exchange = exchange.readline().strip()
     print("The exchange replied:", hello_from_exchange, file=sys.stderr)
+    id_no = 0
     while True:
-    	id_no = rand.randint()
     	print("ADD " + str(id_no) + " BOND BUY 999 100", file=exchange)
-    	response = exchange.readline().strip()
+    	id_no += 1
+        time.sleep(1)
+        response = exchange.readline().strip()
     	print(response)
 
 if __name__ == "__main__":
