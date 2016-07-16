@@ -48,8 +48,6 @@ def trade(exchange):
     global flowLock
     sayHello(exchange)
 
-    registerAlgos(prices)
-
     id_no = 0
     threading.Thread(target=bondTrader, args=(exchange, ))
     while True:
