@@ -33,7 +33,8 @@ def bondTrader(exchange):
     global flowLock
     print('  bond trader is starting')
     while True:
-        hello_resp = sayHello(exchange)
+        print('hello')
+        time.sleep(1)
 
 
 def sayHello(exchange):
