@@ -6,6 +6,10 @@ import socket
 import random
 import time
 import json
+import threading
+
+
+flowLock = threading.Lock()
 
 
 def sayHello(exchange):
@@ -16,10 +20,13 @@ def sayHello(exchange):
 
 
 def trade(exchange):
+    global flowLock
     sayHello(exchange)
     id_no = 0
     while True:
+        flowLock.acquire()
         response = exchange.readline().strip()
+        flowLock.release()
         response = json.loads(response)
         if response['type'] != 'book' and response['type'] != 'trade':
             print(response)
