@@ -5,12 +5,11 @@ import sys
 import socket
 import time
 import json
-import threading
+import thread
 import utils
 import random
 
 
-flowLock = threading.Lock()
 order_id = 0
 
 
@@ -36,14 +35,6 @@ class Order:
         ret['price'] = self.Price
         ret['size'] = self.Size
         return json.dumps(ret)
-
-
-def bondTrader(exchange):
-    global flowLock
-    print('  bond trader is starting')
-    while True:
-        print('hello', file=exchange)
-        time.sleep(1)
 
 
 def bondBuyExec(prices):
@@ -91,7 +82,7 @@ def trade(exchange):
     registerAlgos(prices)
 
     id_no = 0
-    # threading.Thread(target=bondTrader, args=(exchange, ))
+    thread.start_new_thread(status, (exchange, ))
     while True:
         response = exchange.readline().strip()
         response = json.loads(response)
