@@ -23,18 +23,28 @@ class Order:
         return json.dumps("{'type': '%s', 'symbol', '%s', 'price': '%s', 'size': '%s'}" % (self.Type, self.Symbol, self.Price, self.Size))
 
 
-class Book:
-    def __init__(self):
-        self.stocks = []
-        self.price = 0
-
-
 def bondTrader(exchange):
     global flowLock
     print('  bond trader is starting')
     while True:
         print('hello')
         time.sleep(1)
+
+
+def bondBuyExec(prices):
+    price = prices.getStockSell('BOND')
+    if price[0] < 1000:
+        print(Order('trade', 'BOND', price[0], price[1]).getOrderString(), file=prices.exchange)
+
+
+def bondBuyCond(prices):
+    if prices.getStockSell('BOND')[0] < 1000:
+        return True
+    return False
+
+
+def registerAlgos(prices):
+    prices.registerEvent(utils.Event(['BOND'], bondBuyCond, bondBuyExec))
 
 
 def sayHello(exchange):
@@ -49,8 +59,11 @@ def trade(exchange):
     global flowLock
     sayHello(exchange)
 
+    prices = utils.Prices(exchange)
+    registerAlgos(prices)
+
     id_no = 0
-    threading.Thread(target=bondTrader, args=(exchange, ))
+    # threading.Thread(target=bondTrader, args=(exchange, ))
     while True:
         flowLock.acquire()
         response = exchange.readline().strip()
