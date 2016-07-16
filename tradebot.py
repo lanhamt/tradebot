@@ -48,7 +48,6 @@ def trade(exchange):
     global flowLock
     sayHello(exchange)
 
-    prices = utils.Prices(exchange)
     registerAlgos(prices)
 
     id_no = 0
@@ -58,7 +57,6 @@ def trade(exchange):
         response = exchange.readline().strip()
         flowLock.release()
         response = json.loads(response)
-        utils.processMsg(response, prices)
         if response['type'] != 'book' and response['type'] != 'trade':
             print(response)
 
