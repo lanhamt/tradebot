@@ -26,7 +26,7 @@ type ClientMessage struct {
 type ServerMessage struct {
     Type string
     Symbol string
-    
+
 }
 
 func handleConnection(c net.Conn) {
@@ -42,6 +42,18 @@ func listen() {
     }
 }
 
+func connectToServer() {
+    for {
+        fmt.Print("  connecting to server...")
+        ln, err := net.Listen("tcp", "test-exch-SEGFAULT:2000")
+        if err != nil {
+            fmt.Println(err)
+            return
+        }    
+    }
+}
+
 func main() {
     fmt.Print("tradebot starting up...")
+    connectToServer()
 }
