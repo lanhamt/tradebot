@@ -37,6 +37,18 @@ class Order:
         return json.dumps(ret)
 
 
+def buy(name, size):
+    order = Order('')
+
+
+def sell(name, size):
+    pass
+
+
+def convert(name, is_buy, size):
+    pass
+
+
 def bondBuyExec(prices):
     price = prices.getStockSell('BOND')
     if price[0] < 1000:
