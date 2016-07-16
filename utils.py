@@ -1,9 +1,4 @@
 class Stock:
-	name = ''
-	ETF = False
-	members = []
-	sellPrice = 0
-	buyPrice = 0
 	def __init__(self, name, ETF=False, members=[], sellPrice=(float('inf'), 0), buyPrice=(0, 0)):
 		self.name = name
 		self.ETF = ETF
@@ -12,18 +7,12 @@ class Stock:
 		self.buyPrice = buyPrice
 
 class Event:
-	triggerStocks = []
-	testFunc = None 
-	actionFunc = None
 	def __init__(self, triggerStocks, testFunc, actionFunc):
 		self.triggerStocks = triggerStocks
 		self.testFunc = testFunc
 		self.actionFunc = actionFunc
 
 class Prices:
-	stocks = {}
-	stockEvents = {}
-	exchange = None
 	def setStockSell(self, name, sellPrice):
 		if name in self.stocks:
 			self.stocks[name].sellPrice = sellPrice
@@ -58,6 +47,8 @@ class Prices:
 				if event.testFunc(self):
 					event.actionFunc(self)
 	def __init__(self, exchange):
+		self.stocks = {}
+		self.stockEvents = {}
 		self.exchange = exchange
 		self.stocks['BOND'] = stock('BOND')
 		self.stocks['VALBZ'] = stock('VALBZ', True, [('VALE', 1)])
@@ -83,9 +74,6 @@ def processMsg(msg, prices):
 
 def testFunc(prices):
 	return True
-
-def buyBonds(prices):
-	print('BUYING', file=prices.exchange)
 
 def registerStockEvents(prices):
 	prices.registerEvent(['BOND'], testFunc, buyBonds)
