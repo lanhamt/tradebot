@@ -52,11 +52,12 @@ def bondBuyCond(prices):
     return False
 
 
-def bondSell
+def bondSell(prices):
+    pass
 
 
 def bondSellCond(prices):
-
+    pass
 
 
 def registerAlgos(prices):
