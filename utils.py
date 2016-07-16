@@ -52,7 +52,7 @@ class Prices:
 				self.stockEvents[stockName].append(event)
 			else :
 				self.stockEvents[stockName] = [event]
-	def checkEvents(stock)
+	def checkEvents(stock):
 		if stock.name in self.stockEvents:
 			for event in self.stockEvents[stock.name]:
 				if event.testFunc(self):
