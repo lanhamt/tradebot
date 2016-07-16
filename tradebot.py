@@ -19,7 +19,7 @@ def main():
     	id_no = rand.randint()
     	print("ADD " + str(id_no) + " BOND BUY 999 100", file=exchange)
     	response = exchange.readline().strip()
-    	print response
+    	print(response)
 
 if __name__ == "__main__":
     main()
