@@ -8,12 +8,12 @@ import time
 
 def connect():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(("test-exch-SEGFAULT", 20000))
+    s.connect(("production", 20000))
     return s.makefile('w+', 1)
 
 def main():
     exchange = connect()
-    print("HELLO TEAMNAME", file=exchange)
+    print("HELLO SEGFAULT", file=exchange)
     hello_from_exchange = exchange.readline().strip()
     print("The exchange replied:", hello_from_exchange, file=sys.stderr)
     id_no = 0
