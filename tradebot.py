@@ -20,7 +20,7 @@ class Order:
         self.Size = Size
 
     def getOrderString(self):
-        return json.dumps("{'type': '%s', 'symbol': '%s', 'price': '%s', 'size': '%s'}" % (self.Type, self.Symbol, self.Price, self.Size))
+        return json.dumps("{'type': '%s', 'symbol': '%s', 'price': %s, 'size': %s}" % (self.Type, self.Symbol, self.Price, self.Size))
 
 
 def bondTrader(exchange):
