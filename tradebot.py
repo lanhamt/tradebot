@@ -9,7 +9,8 @@ import json
 
 
 def sayHello(exchange):
-    print(json.dumps({"type": "hello", "team": "ASDF"}), file=exchange)
+    hello = {"type": "hello", "team": "SEGFAULT"}
+    print(json.dumps(hello), file=exchange)
     hello_from_exchange = exchange.readline().strip()
     print('The exchange replied:', hello_from_exchange, file=sys.stderr)
 

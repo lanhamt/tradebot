@@ -28,6 +28,14 @@ class Prices:
 		return self.stocks[name].ETF
 	def getMembers(name):
 		return self.stocks[name].members
+	def __init__(self):
+		self.stocks["BOND"] = stock("BOND")
+		self.stocks["VALBZ"] = stock("VALBZ", True, [("VALE", 1)])
+		self.stocks["VALE"] = stock("VALE", True, [("VALBZ", 1)])
+		self.stocks["GS"] = stock("GS")
+		self.stocks["MS"] = stock("MS")
+		self.stocks["WFC"] = stock("WFC")
+		self.stocks["XLF"] = stock("XLF", True, [("BOND", 3), ("GS", 2), ("MS", 3), ("WFC", 2)])
 
 
 def processBookJSON(msg, prices):
@@ -39,4 +47,6 @@ def processBookJSON(msg, prices):
 	prices.setStockBuy(name, bestBuyPrice)
 	prices.setStockSell(name, bestSellPrice)
 
-
+def processMsg(msg, prices):
+	if msg.type == "book":
+		processBookJSON(msg, prices)
