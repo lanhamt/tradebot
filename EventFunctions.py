@@ -15,15 +15,15 @@ def XLFtoStockTest(prices):
 	XLFValue = XLFTuple[0]*max_trade*10
 	BundleValue = sum(BondTuple[0]*max_trade*3, GSTuple[0]*max_trade*2, MSTuple[0]*max_trade*3, WFCTuple[0]*max_trade*2)
 	if XLFValue + 100 < BundleValue:
-		tradeXLF(max_trade, XLFTuple[0], BondTuple[0], GSTuple[0], MSTuple[0], WFCTuple[0])
+		tradeXLF(prices, max_trade, XLFTuple[0], BondTuple[0], GSTuple[0], MSTuple[0], WFCTuple[0])
 
 def tradeXLF(trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCprice):
-	utils.buy("XLF", trade_sz*10, XFLprice)
-	utils.convert("XLF", False, trade_sz*10) #True = BUY
-	utils.sell("BOND", trade_sz*3, BONDprice)
-	utils.sell("GS", trade_sz*2, GSprice)
-	utils.sell("MS", trade_sz*3, MSprice)
-	utils.sell("WFC", trade_sz*2, WFCprice)
+	utils.buy(prices, "XLF", trade_sz*10, XFLprice)
+	utils.convert(prices, "XLF", False, trade_sz*10) #True = BUY
+	utils.sell(prices, "BOND", trade_sz*3, BONDprice)
+	utils.sell(prices, "GS", trade_sz*2, GSprice)
+	utils.sell(prices, "MS", trade_sz*3, MSprice)
+	utils.sell(prices, "WFC", trade_sz*2, WFCprice)
 
 
 """
@@ -41,16 +41,16 @@ def XLFtoStockTest(prices):
 	XLFValue = XLFTuple[0]*max_trade*10
 	BundleValue = sum(BondTuple[0]*max_trade*3, GSTuple[0]*max_trade*2, MSTuple[0]*max_trade*3, WFCTuple[0]*max_trade*2)
 	if BundleValue + 100 < XLFValue:
-		tradeXLFBundle(max_trade, XLFTuple[0], BondTuple[0], GSTuple[0], MSTuple[0], WFCTuple[0])
+		tradeXLFBundle(prices, max_trade, XLFTuple[0], BondTuple[0], GSTuple[0], MSTuple[0], WFCTuple[0])
 
 
-def tradeXLFBundle(trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCprice):
-	utils.buy("BOND", trade_sz*3, BONDprice)
-	utils.buy("GS", trade_sz*2, GSprice)
-	utils.buy("MS", trade_sz*3, MSprice)
-	utils.buy("WFC", trade_sz*2, WFCprice)
-	utils.convert("XLF", True, trade_sz*10) #True = BUY
-	utils.sell("XLF", trade_sz*10, XFLprice)
+def tradeXLFBundle(prices, trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCprice):
+	utils.buy(prices, "BOND", trade_sz*3, BONDprice)
+	utils.buy(prices, "GS", trade_sz*2, GSprice)
+	utils.buy(prices, "MS", trade_sz*3, MSprice)
+	utils.buy(prices, "WFC", trade_sz*2, WFCprice)
+	utils.convert(prices, "XLF", True, trade_sz*10) #True = BUY
+	utils.sell(prices, "XLF", trade_sz*10, XFLprice)
 
 
 """
@@ -64,16 +64,16 @@ def tradeVALEAndVALBZ(prices):
 	max_tradeVALE2VALBZ = min(VALEBuyTuple[1], VALBZSellTuple[1])
 	max_tradeVALBZ2VALE = min(VALBZBuyTuple[1], VALESellTuple[1])
 	if VALEBuyTuple[0]*max_tradeVALE2VALBZ + 10 < VALBZSellTuple[0]*max_tradeVALE2VALBZ:
-		tradeVALEforVALBZ(max_tradeVALE2VALBZ, VALEBuyTuple[0], VALBZSellTuple[0])
+		tradeVALEforVALBZ(prices, max_tradeVALE2VALBZ, VALEBuyTuple[0], VALBZSellTuple[0])
 	if VALBZBuyTuple[0]*max_tradeVALBZ2VALE + 10 < VALESellTuple[0]*max_tradeVALBZ2VALE:
-		tradeVALBZforVALE(max_tradeVALBZ2VALE, VALESellTuple[0], VALBZBuyTuple[0])
+		tradeVALBZforVALE(prices, max_tradeVALBZ2VALE, VALESellTuple[0], VALBZBuyTuple[0])
 
-def tradeVALEforVALBZ(trade_sz, VALEprice, VALBZprice):
-	utils.buy("VALE", trade_sz, VALEprice)
-	utils.convert("VALE", False, trade_sz)
-	utils.sell("VALBZ", trade_sz, VALBZprice)
+def tradeVALEforVALBZ(prices, trade_sz, VALEprice, VALBZprice):
+	utils.buy(prices, "VALE", trade_sz, VALEprice)
+	utils.convert(prices, "VALE", False, trade_sz)
+	utils.sell(prices, "VALBZ", trade_sz, VALBZprice)
 
-def tradeVALBZforVALE(trade_sz, VALEprice, VALBZprice):
-	utils.buy("VALBZ", trade_sz, VALBZprice)
-	utils.convert("VALBZ", False, trade_sz)
-	utils.sell("VALE", trade_sz, VALEprice)
+def tradeVALBZforVALE(prices, trade_sz, VALEprice, VALBZprice):
+	utils.buy(prices, "VALBZ", trade_sz, VALBZprice)
+	utils.convert(prices, "VALBZ", False, trade_sz)
+	utils.sell(prices, "VALE", trade_sz, VALEprice)
