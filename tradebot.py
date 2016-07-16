@@ -11,14 +11,16 @@ import random
 
 
 flowLock = threading.Lock()
+order_id = 0
 
 
 class Order:
-    o_id = 0
     def __init__(self, Type='', Order_Id=0, Symbol='', Dir='', Price='', Size=''):
+        global order_id
+        Order_Id = order_id
+        order_id += 1
         self.Type = Type
-        self.Order_Id = o_id
-        o_id += 1
+        self.Order_Id = Order_Id
         self.Symbol = Symbol
         self.Dir = Dir
         self.Price = Price
@@ -50,8 +52,16 @@ def bondBuyCond(prices):
     return False
 
 
+def bondSell
+
+
+def bondSellCond(prices):
+
+
+
 def registerAlgos(prices):
     prices.registerEvent(utils.Event(['BOND'], bondBuyCond, bondBuyExec))
+    prices.registerEvent(utils.Event(['BOND'], bondSellCond, bondSellExec))
 
 
 def sayHello(exchange):
