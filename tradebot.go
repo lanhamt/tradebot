@@ -42,14 +42,14 @@ func listen() {
         return
     }    
     for {
-    // accept connection
-    c, err := ln.Accept()
-    if err != nil {
-        fmt.Println(err)
-        continue
-    }
-    // handle connection
-        go handleServerConnection(c)
+        // accept connection
+        connection, err := ln.Accept()
+        if err != nil {
+            fmt.Println(err)
+            continue
+        }
+        // handle connection
+        go handleServerConnection(connection)
     }
 }
 
