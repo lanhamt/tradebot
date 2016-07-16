@@ -7,20 +7,24 @@ import time
 import json
 import threading
 import utils
+import random
 
 
 flowLock = threading.Lock()
 
 
 class Order:
-    def __init__(self, Type='', Symbol='', Price='', Size=''):
+    o_id = 0
+    def __init__(self, Type='', Order_Id=0, Symbol='', Dir='', Price='', Size=''):
         self.Type = Type
+        self.Order_Id = o_id += 1
         self.Symbol = Symbol
+        self.Dir = Dir
         self.Price = Price
         self.Size = Size
 
     def getOrderString(self):
-        return json.dumps("{'type': '%s', 'symbol': '%s', 'price': %s, 'size': %s}" % (self.Type, self.Symbol, self.Price, self.Size))
+        return json.dumps("{'type': '%s', 'order_id': %s, 'symbol': '%s', 'dir': '%s', 'price': %s, 'size': %s}" % (self.Type, self.Order_Id, self.Symbol, self.Dir, self.Price, self.Size))
 
 
 def bondTrader(exchange):
@@ -34,7 +38,7 @@ def bondTrader(exchange):
 def bondBuyExec(prices):
     price = prices.getStockSell('BOND')
     if price[0] < 1000:
-        order = Order('trade', 'BOND', price[0], price[1])
+        order = Order('add', 0, 'BOND', 'BUY', price[0], price[1])
         print(order.getOrderString(), file=prices.exchange)
         print(order.getOrderString())
 
