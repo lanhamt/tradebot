@@ -1,3 +1,4 @@
+import sys
 class Stock:
 	def __init__(self, name, ETF=False, members=[], sellPrice=(float('inf'), 0), buyPrice=(0, 0)):
 		self.name = name
@@ -18,22 +19,22 @@ class Prices:
 			self.stocks[name].sellPrice = sellPrice
 		else :
 			self.stocks[name] = Stock(name, sellPrice=sellPrice)
-		self.checkEvents(stocks[name])
+		self.checkEvents(self.stocks[name])
 	def setStockBuy(self, name, buyPrice):
 		if name in self.stocks:
 			self.stocks[name].buyPrice = buyPrice
 		else :
 			self.stocks[name] = Stock(name, buyPrice=buyPrice)
-		self.checkEvents(stocks[name])
-	def addNewStock(stock):
+		self.checkEvents(self.stocks[name])
+	def addNewStock(self, stock):
 		self.stocks[stock.name] = stock
-	def getStockSell(name):
+	def getStockSell(self, name):
 		return self.stocks[name].sellPrice
-	def getStockBuy(name):
+	def getStockBuy(self, name):
 		return self.stocks[name].buyPrice
-	def isETF(name):
+	def isETF(self, name):
 		return self.stocks[name].ETF
-	def getMembers(name):
+	def getMembers(self, name):
 		return self.stocks[name].members
 	def registerEvent(self, event):
 		for stockName in event.triggerStocks:
@@ -41,7 +42,7 @@ class Prices:
 				self.stockEvents[stockName].append(event)
 			else :
 				self.stockEvents[stockName] = [event]
-	def checkEvents(stock):
+	def checkEvents(self, stock):
 		if stock.name in self.stockEvents:
 			for event in self.stockEvents[stock.name]:
 				if event.testFunc(self):
@@ -50,13 +51,13 @@ class Prices:
 		self.stocks = {}
 		self.stockEvents = {}
 		self.exchange = exchange
-		self.stocks['BOND'] = stock('BOND')
-		self.stocks['VALBZ'] = stock('VALBZ', True, [('VALE', 1)])
-		self.stocks['VALE'] = stock('VALE', True, [('VALBZ', 1)])
-		self.stocks['GS'] = stock('GS')
-		self.stocks['MS'] = stock('MS')
-		self.stocks['WFC'] = stock('WFC')
-		self.stocks['XLF'] = stock('XLF', True, [('BOND', 3), ('GS', 2), ('MS', 3), ('WFC', 2)])
+		self.stocks['BOND'] = Stock('BOND')
+		self.stocks['VALBZ'] = Stock('VALBZ', True, [('VALE', 1)])
+		self.stocks['VALE'] = Stock('VALE', True, [('VALBZ', 1)])
+		self.stocks['GS'] = Stock('GS')
+		self.stocks['MS'] = Stock('MS')
+		self.stocks['WFC'] = Stock('WFC')
+		self.stocks['XLF'] = Stock('XLF', True, [('BOND', 3), ('GS', 2), ('MS', 3), ('WFC', 2)])
 
 
 def processBookJSON(msg, prices):
@@ -71,24 +72,3 @@ def processBookJSON(msg, prices):
 def processMsg(msg, prices):
 	if msg['type'] == 'book':
 		processBookJSON(msg, prices)
-
-def testFunc(prices):
-	return True
-
-def registerStockEvents(prices):
-	prices.registerEvent(['BOND'], testFunc, buyBonds)
-
-
-def demo():
-	prices = Prices()
-	registerStockEvents(prices)
-	while True:
-		msg = getServerMsg()
-		processMsg(msg)
-
-'''
-Get server message
-updateDB
-check if action is available
-take action
-'''
