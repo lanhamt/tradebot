@@ -61,10 +61,6 @@ def trade(exchange):
         utils.processMsg(response, prices)
         if response['type'] != 'book' and response['type'] != 'trade':
             print(response)
-#        print('ADD ' + str(id_no) + ' BOND BUY 999 10', file=exchange)
-#        print('ADD ' + str(id_no) + ' BOND SELL 1001 1', file=exchange)
-#        id_no += 1
-#        time.sleep(.08)
 
 
 def connect():
@@ -75,11 +71,15 @@ def connect():
 
 def main():
     print('starting tradebot...')
+    connected = False
     try:
         exchange = connect()
-        trade(exchange)
+        connected = True
     except:
         print('  could not connect, retrying')
+        connected = False
+    if connected:
+        trade(exchange)
 
 
 if __name__ == '__main__':
