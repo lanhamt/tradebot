@@ -20,13 +20,11 @@ class Prices:
 			self.stocks[name].sellPrice = sellPrice
 		else :
 			self.stocks[name] = Stock(name, sellPrice=sellPrice)
-		self.checkEvents(self.stocks[name])
 	def setStockBuy(self, name, buyPrice):
 		if name in self.stocks:
 			self.stocks[name].buyPrice = buyPrice
 		else :
 			self.stocks[name] = Stock(name, buyPrice=buyPrice)
-		self.checkEvents(self.stocks[name])
 	def addNewStock(self, stock):
 		self.stocks[stock.name] = stock
 	def getStockSell(self, name):
@@ -43,7 +41,8 @@ class Prices:
 				self.stockEvents[stockName].append(event)
 			else :
 				self.stockEvents[stockName] = [event]
-	def checkEvents(self, stock):
+	def checkEvents(self, name):
+		stock = self.stocks[name]
 		if stock.name in self.stockEvents:
 			for event in self.stockEvents[stock.name]:
 				if event.testFunc(self):
@@ -69,6 +68,7 @@ def processBookJSON(msg, prices):
 	bestSellPrice = sorted(sellPrices, key=lambda price: price[0])[0]
 	prices.setStockBuy(name, bestBuyPrice)
 	prices.setStockSell(name, bestSellPrice)
+	prices.checkEvents(name)
 
 def processMsg(msg, prices):
 	if msg['type'] == 'book':
