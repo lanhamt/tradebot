@@ -15,6 +15,30 @@ from EventFunctions import *
 order_id = 0
 
 
+class Order:
+    def __init__(self, Type='', Order_Id=0, Symbol='', Dir='', Price='', Size=''):
+        global order_id
+        Order_Id = order_id
+        order_id += 1
+        self.Type = Type
+        self.Order_Id = Order_Id
+        self.Symbol = Symbol
+        self.Dir = Dir
+        self.Price = Price
+        self.Size = Size
+
+
+    def getOrderString(self):
+        ret = {}
+        ret['type'] = self.Type
+        ret['order_id'] = self.Order_Id
+        ret['symbol'] = self.Symbol
+        ret['dir'] = self.Dir
+        ret['price'] = self.Price
+        ret['size'] = self.Size
+        return json.dumps(ret)
+
+
 def status(exchange):
     print('  getting status update...')
     while True:
