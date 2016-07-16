@@ -67,7 +67,7 @@ def processBookJSON(msg, prices):
 	if (len(buyPrices) > 0):
 		bestBuyPrice = sorted(buyPrices, key=lambda price: price[0])[len(buyPrices) - 1]
 		prices.setStockBuy(name, bestBuyPrice)
-	if(len(sellPrices) > 0)
+	if(len(sellPrices) > 0):
 		bestSellPrice = sorted(sellPrices, key=lambda price: price[0])[0]
 		prices.setStockSell(name, bestSellPrice)
 	prices.checkEvents(name)
