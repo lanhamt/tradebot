@@ -8,8 +8,6 @@ import json
 import threading
 import utils
 import random
-from utils import Order
-from EventFunctions import *
 
 
 order_id = 0
@@ -91,7 +89,7 @@ def trade(exchange):
     registerAlgos(prices)
 
     id_no = 0
-    threading.Thread(target=bondTrader, args=(exchange, ))
+    threading.Thread(target=status, args=(exchange, ))
     while True:
         response = exchange.readline().strip()
         response = json.loads(response)
