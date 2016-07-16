@@ -28,7 +28,7 @@ def bondBuyExec(prices):
 
 
 def bondBuyCond(prices):
-    if prices.getStockSell('BOND')][0] < 1000:
+    if prices.getStockSell('BOND')[0] < 1000:
         return True
     return False
 
