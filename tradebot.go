@@ -35,31 +35,28 @@ func handleConnection(c net.Conn) {
 }
 
 func listen() {
-    ln, err := net.Listen("tcp", ":9999")
+    ln, err := net.Listen("tcp", "test-exch-SEGFAULT:2000")
     if err != nil {
+        fmt.Println("  couldn't connect, retrying")
         fmt.Println(err)
         return
+    }    
+    for {
+    // accept connection
+    c, err := ln.Accept()
+    if err != nil {
+        fmt.Println(err)
+        continue
+    }
+    // handle connection
+        go handleServerConnection(c)
     }
 }
 
 func connectToServer() {
     for {
         fmt.Println("  connecting to server...")
-        ln, err := net.Listen("tcp", "test-exch-SEGFAULT:2000")
-        if err != nil {
-            fmt.Println(err)
-            return
-        }    
-        for {
-        // accept connection
-        c, err := ln.Accept()
-        if err != nil {
-            fmt.Println(err)
-            continue
-        }
-        // handle connection
-            go handleServerConnection(c)
-        }
+        listen()
     }
 }
 
