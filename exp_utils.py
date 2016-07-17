@@ -93,7 +93,6 @@ class Prices:
 	def checkEvents(self, name):
 		stock = self.stocks[name]
 		if stock.name in self.stockEvents:
-			print('testing', stock.name, self.getStockSell(stock.name))
 			for event in self.stockEvents[stock.name]:
 				if event.testFunc(self):
 					event.actionFunc(self)
