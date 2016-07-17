@@ -111,8 +111,8 @@ Should be attached to ['BOND','VALBZ','VALE','GS','MS','WFC','XLF']
 """
 
 def liquidate(prices, name):
-    sellPrice = prices.getStockBuy(name)
-    buyPrice = prices.getStockSell(name)
+    sellPrice = prices.getStockBuy(name)[0]
+    buyPrice = prices.getStockSell(name)[0]
     if prices.portfolio.shouldSellBasedOnPrice(name, sellPrice):
         m3_utils.sell(prices, name, prices.portfolio.getAmt(name), sellPrice)
     if prices.portfolio.shouldBuyBasedOnPrice(name, buyPrice):
