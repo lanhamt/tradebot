@@ -1,4 +1,5 @@
-import utils
+import exp_utils
+from __future__ import print_function
 
 
 def dummy(prices):
@@ -39,12 +40,12 @@ def XLFtoStockTest(prices):
 		tradeXLF(prices, max_trade, XLFTuple[0], BondTuple[0], GSTuple[0], MSTuple[0], WFCTuple[0])
 
 def tradeXLF(trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCprice):
-	utils.buy(prices, "XLF", trade_sz*10, XFLprice)
-	utils.convert(prices, "XLF", False, trade_sz*10) #True = BUY
-	utils.sell(prices, "BOND", trade_sz*3, BONDprice)
-	utils.sell(prices, "GS", trade_sz*2, GSprice)
-	utils.sell(prices, "MS", trade_sz*3, MSprice)
-	utils.sell(prices, "WFC", trade_sz*2, WFCprice)
+	exp_utils.buy(prices, "XLF", trade_sz*10, XFLprice)
+	exp_utils.convert(prices, "XLF", False, trade_sz*10) #True = BUY
+	exp_utils.sell(prices, "BOND", trade_sz*3, BONDprice)
+	exp_utils.sell(prices, "GS", trade_sz*2, GSprice)
+	exp_utils.sell(prices, "MS", trade_sz*3, MSprice)
+	exp_utils.sell(prices, "WFC", trade_sz*2, WFCprice)
 
 
 """
@@ -66,12 +67,12 @@ def StocktoXFLTest(prices):
 
 
 def tradeXLFBundle(prices, trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCprice):
-	utils.buy(prices, "BOND", trade_sz*3, BONDprice)
-	utils.buy(prices, "GS", trade_sz*2, GSprice)
-	utils.buy(prices, "MS", trade_sz*3, MSprice)
-	utils.buy(prices, "WFC", trade_sz*2, WFCprice)
-	utils.convert(prices, "XLF", True, trade_sz*10) #True = BUY
-	utils.sell(prices, "XLF", trade_sz*10, XFLprice)
+	exp_utils.buy(prices, "BOND", trade_sz*3, BONDprice)
+	exp_utils.buy(prices, "GS", trade_sz*2, GSprice)
+	exp_utils.buy(prices, "MS", trade_sz*3, MSprice)
+	exp_utils.buy(prices, "WFC", trade_sz*2, WFCprice)
+	exp_utils.convert(prices, "XLF", True, trade_sz*10) #True = BUY
+	exp_utils.sell(prices, "XLF", trade_sz*10, XFLprice)
 
 
 """
@@ -90,15 +91,15 @@ def tradeVALEAndVALBZ(prices):
 		tradeVALBZforVALE(prices, max_tradeVALBZ2VALE, VALESellTuple[0], VALBZBuyTuple[0])
 
 def tradeVALEforVALBZ(prices, trade_sz, VALEprice, VALBZprice):
-	utils.buy(prices, "VALE", trade_sz, VALEprice)
-	utils.convert(prices, "VALE", False, trade_sz)
-	utils.sell(prices, "VALBZ", trade_sz, VALBZprice)
+	exp_utils.buy(prices, "VALE", trade_sz, VALEprice)
+	exp_utils.convert(prices, "VALE", False, trade_sz)
+	exp_utils.sell(prices, "VALBZ", trade_sz, VALBZprice)
 
 
 def tradeVALBZforVALE(prices, trade_sz, VALEprice, VALBZprice):
-	utils.buy(prices, "VALBZ", trade_sz, VALBZprice)
-	utils.convert(prices, "VALBZ", False, trade_sz)
-	utils.sell(prices, "VALE", trade_sz, VALEprice)
+	exp_utils.buy(prices, "VALBZ", trade_sz, VALBZprice)
+	exp_utils.convert(prices, "VALBZ", False, trade_sz)
+	exp_utils.sell(prices, "VALE", trade_sz, VALEprice)
 
 
 
