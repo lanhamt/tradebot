@@ -29,6 +29,7 @@ def registerAlgos(prices):
     prices.registerEvent(m3_utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, XLFtoStockTest))
     prices.registerEvent(m3_utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, StocktoXFLTest))
     prices.registerEvent(m3_utils.Event(['VALE', 'VALBZ'], dummy, tradeVALEAndVALBZ))
+    prices.registerEvent(m3_utils.Event(['BOND','VALBZ','VALE','GS','MS','WFC','XLF'], dummy, liquidate))
 
 
 def sayHello(exchange):

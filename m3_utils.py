@@ -19,18 +19,19 @@ class Portfolio:
         self.stocks['XLF'] = [0, 0]
 
 
-    def bought(name, price):
+    def bought(name, price, sz):
+        self.cash = self.cash - price*sz
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
-        self.stocks[name][0] = amt + 1
-        self.stocks[name][1] = (amt*avg_price + price)/(amt + 1)
+        self.stocks[name][0] = amt + sz
+        self.stocks[name][1] = (amt*avg_price + price*sz)/(amt + sz)
 
 
-    def sold(name, price)
+    def sold(name, price, sz)
+        self.cash = self.cash + price*sz
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
-        self.stocks[name][0] = amt - 1
-        self.stocks[name][1] = ((amt-1)*avg_price)/(amt - 1)
+        self.stocks[name][0] = amt - sz
 
 
     def shouldSellBasedOnPrice(name, price):
@@ -44,6 +45,8 @@ class Portfolio:
             return True
         return False
 
+    def getAmt(name):
+        return self.stocks[name][0]
 
     def update(self, msg):
         if msg['dir'] == 'BUY':
@@ -64,6 +67,10 @@ class Portfolio:
             positions[stock] = self.stocks[stock][0]
         ret['positions'] = positions
         return json.dumps(ret)
+    
+
+    def getAvgPrice(name):
+        return self.stocks[name][1]
 
 
 def buy(prices, name, size, price):
@@ -183,7 +190,7 @@ class Prices:
         if stock.name in self.stockEvents:
             for event in self.stockEvents[stock.name]:
                 if event.testFunc(self):
-                    event.actionFunc(self)
+                    event.actionFunc(self, name)
 
 
     def __init__(self, exchange, initial_message):
