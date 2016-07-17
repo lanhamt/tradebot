@@ -16,7 +16,10 @@ def sell(prices, name, size, price):
 
 
 def convert(prices, name, is_buy, size):
-    order = Order('convert', 0, name, 'BUY', Size=size)
+	if is_buy:
+		order = Order('convert', 0, name, 'BUY', None, Size=size)
+	else:
+		order = Order('convert', 0, name, 'SELL', None, Size=size)
     print(order.getOrderString(), file=prices.exchange)
     print('ORDER SUBMITTED [CONVERT]', order.getOrderString())
 

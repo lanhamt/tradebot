@@ -100,7 +100,7 @@ def tradeVALEforVALBZ(prices, trade_sz, VALEprice, VALBZprice):
 
 def tradeVALBZforVALE(prices, trade_sz, VALEprice, VALBZprice):
 	exp_utils.buy(prices, "VALBZ", trade_sz, VALBZprice)
-	exp_utils.convert(prices, "VALBZ", False, trade_sz)
+	exp_utils.convert(prices, "VALE", True, trade_sz)
 	exp_utils.sell(prices, "VALE", trade_sz, VALEprice)
 
 
