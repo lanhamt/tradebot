@@ -19,7 +19,7 @@ def portfolioStats(prices):
 	while True:
 		print('PORTFOLIO STATS:\n')
 		print(prices.portfolio.printStats() + '\n')
-		print('COMM LINES: ' + lines + '\n')
+		print('COMM LINES: ' + str(lines) + '\n')
 		time.sleep(10)
 
 
