@@ -1,18 +1,15 @@
+#!/usr/bin/python
 from __future__ import print_function
 from __future__ import division
 import sys
 import json
 
 
-def parseHelloMessage(message):
-    pass
-
-
 class Portfolio:
     def __init__(self, initial_message):
-        parseHelloMessage(initial_message)
         self.cash = initial_message['cash']
         self.stocks = {}
+        # [amount, avg price]
         self.stocks['BOND'] = [0, 0]
         self.stocks['VALBZ'] = [0, 0]
         self.stocks['VALE'] = [0, 0]
@@ -22,7 +19,7 @@ class Portfolio:
         self.stocks['XLF'] = [0, 0]
 
 
-    def bought(name, price, sz):
+    def bought(self, name, price, sz):
         self.cash = self.cash - price*sz
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
@@ -35,20 +32,20 @@ class Portfolio:
             self.stocks[name][1] = (amt*avg_price + price*sz)/(amt + sz)
 
 
-    def sold(name, price, sz)
+    def sold(self, name, price, sz):
         self.cash = self.cash + price*sz
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
         self.stocks[name][0] = amt - sz
 
 
-    def shouldSellBasedOnPrice(name, price):
+    def shouldSellBasedOnPrice(self, name, price):
         if self.stocks[name][0] > 0  and self.stocks[name][1] < price:
             return True
         return False
 
 
-    def shouldBuyBasedOnPrice(name, price):
+    def shouldBuyBasedOnPrice(self, name, price):
         if self.stocks[name][0] < 0  and self.stocks[name][1] > price:
             return True
         return False
@@ -56,11 +53,29 @@ class Portfolio:
     def getAmt(name):
         return abs(self.stocks[name][0])
 
-    def getAvgPrice(name):
+    def update(self, msg):
+        if msg['dir'] == 'BUY':
+            self.bought(msg['symbol'], msg['price'], msg['size'])
+            print('ORDER EXECUTED [BUY]', msg)
+        elif msg['dir'] == 'SELL':
+            self.sold(msg['symbol'], msg['price'], msg['size'])
+            print('ORDER EXECUTED [SELL]', msg)
+        else:
+            pass # convert
+
+
+    def printStats(self):
+        ret = {}
+        ret['cash'] = self.cash
+        positions = {}
+        for stock in self.stocks:
+            positions[stock] = self.stocks[stock][0]
+        ret['positions'] = positions
+        return json.dumps(ret)
+    
+
+    def getAvgPrice(self, name):
         return self.stocks[name][1]
-
-
-
 
 
 def buy(prices, name, size, price):
@@ -213,3 +228,5 @@ def processBookJSON(msg, prices):
 def processMsg(msg, prices):
     if msg['type'] == 'book':
         processBookJSON(msg, prices)
+    elif msg['type'] == 'fill':
+        prices.portfolio.update(msg)

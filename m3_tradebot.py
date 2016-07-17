@@ -1,6 +1,5 @@
 #!/usr/bin/python
 from __future__ import print_function
-
 import sys
 import socket
 import time
@@ -12,10 +11,15 @@ from m3_utils import Order
 from m3_event_functions import *
 
 
+lines = 0
+
+
 def portfolioStats(prices):
+	global lines
 	while True:
 		print('PORTFOLIO STATS:\n')
-		print(prices.portfolio)
+		print(prices.portfolio.printStats() + '\n')
+		print('COMM LINES: ' + lines + '\n')
 		time.sleep(10)
 
 
@@ -37,7 +41,7 @@ def sayHello(exchange):
 
 
 def trade(exchange):
-    global flowLock
+    global lines
     initial_balance = sayHello(exchange)
 
     prices = m3_utils.Prices(exchange, initial_balance)
@@ -48,8 +52,7 @@ def trade(exchange):
         response = exchange.readline().strip()
         response = json.loads(response)
         m3_utils.processMsg(response, prices)
-        if response['type'] != 'book' and response['type'] != 'trade':
-            print(response)
+        lines += 1
 
 
 def connect():
