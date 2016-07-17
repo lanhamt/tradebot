@@ -35,7 +35,6 @@ class Portfolio:
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
         self.stocks[name][0] = amt - sz
-        self.stocks[name][1] = ((amt-sz)*avg_price)/(amt - sz)
 
 
     def shouldSellBasedOnPrice(name, price):
