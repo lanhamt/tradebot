@@ -27,7 +27,7 @@ class Portfolio:
         self.stocks[name][1] = (amt*avg_price + price*sz)/(amt + sz)
 
 
-    def sold(name, price, sz)
+    def sold(name, price, sz):
         self.cash = self.cash + price*sz
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]

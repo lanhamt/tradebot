@@ -1,2 +1,2 @@
 #!/bin/sh
-while true; do python tradebot.py; sleep 5; done
+while true; do python experimental_tradebot.py; sleep 5; done
