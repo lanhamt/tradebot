@@ -6,18 +6,18 @@ import socket
 import time
 import json
 import thread
-import utils
+import exp_utils
 import random
-from utils import Order
+from exp_utils import Order
 from EventFunctions import *
 
 
 def registerAlgos(prices):
-    prices.registerEvent(utils.Event(['BOND'], dummy, bondBuyExec))
-    prices.registerEvent(utils.Event(['BOND'], dummy, bondSellExec))
-    prices.registerEvent(utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, XLFtoStockTest))
-    prices.registerEvent(utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, StocktoXFLTest))
-    prices.registerEvent(utils.Event(['VALE', 'VALBZ'], dummy, tradeVALEAndVALBZ))
+    prices.registerEvent(exp_utils.Event(['BOND'], dummy, bondBuyExec))
+    prices.registerEvent(exp_utils.Event(['BOND'], dummy, bondSellExec))
+    prices.registerEvent(exp_utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, XLFtoStockTest))
+    prices.registerEvent(exp_utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, StocktoXFLTest))
+    prices.registerEvent(exp_utils.Event(['VALE', 'VALBZ'], dummy, tradeVALEAndVALBZ))
 
 
 def sayHello(exchange):
@@ -32,7 +32,7 @@ def trade(exchange):
     global flowLock
     sayHello(exchange)
 
-    prices = utils.Prices(exchange)
+    prices = exp_utils.Prices(exchange)
     registerAlgos(prices)
 
     id_no = 0
@@ -40,7 +40,7 @@ def trade(exchange):
     while True:
         response = exchange.readline().strip()
         response = json.loads(response)
-        utils.processMsg(response, prices)
+        exp_utils.processMsg(response, prices)
         if response['type'] != 'book' and response['type'] != 'trade':
             print(response)
 
