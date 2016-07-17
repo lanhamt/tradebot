@@ -1,6 +1,24 @@
 import sys
 
 
+def buy(prices, name, size, price):
+    order = Order('add', 0, name, 'BUY', price, size)
+    print(order.getOrderString(), file=prices.exchange)
+    print('ORDER SUBMITTED [BUY]: ', order.getOrderString())
+
+
+def sell(prices, name, size, price):
+    order = Order('add', 0, name, 'SELL', price, size)
+    print(order.getOrderString(), file=prices.exchange)
+    print('ORDER SUBMITTED [SELL]', order.getOrderString())
+
+
+def convert(prices, name, is_buy, size):
+    order = Order('convert', 0, name, 'BUY', Size=size)
+    print(order.getOrderString(), file=prices.exchange)
+    print('ORDER SUBMITTED [CONVERT]', order.getOrderString())
+
+
 # global var to keep track of last order id
 order_id = 0
 

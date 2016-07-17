@@ -8,35 +8,16 @@ import json
 import thread
 import utils
 import random
-
-
-def bondBuyExec(prices):
-    price = prices.getStockSell('BOND')
-    if price[0] < 1000:
-        order = Order('add', 0, 'BOND', 'BUY', price[0], price[1])
-        print(order.getOrderString(), file=prices.exchange)
-        print(order.getOrderString())
-
-
-def bondBuyCond(prices):
-    return True
-
-
-def bondSellExec(prices):
-    price = prices.getStockBuy('BOND')
-    if price[0] > 1000:
-        order = Order('add', 0, 'BOND', 'SELL', price[0], price[1])
-        print(order.getOrderString(), file=prices.exchange)
-        print(order.getOrderString())
-
-
-def bondSellCond(prices):
-    return True
+from utils import Order
+from EventFunctions import *
 
 
 def registerAlgos(prices):
-    prices.registerEvent(utils.Event(['BOND'], bondBuyCond, bondBuyExec))
-    prices.registerEvent(utils.Event(['BOND'], bondSellCond, bondSellExec))
+    prices.registerEvent(utils.Event(['BOND'], dummy, bondBuyExec))
+    prices.registerEvent(utils.Event(['BOND'], dummy, bondSellExec))
+    prices.registerEvent(utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, XLFtoStockTest))
+    prices.registerEvent(utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, StocktoXFLTest))
+    prices.registerEvent(utils.Event(['VALE', 'VALBZ'], dummy, tradeVALEAndVALBZ))
 
 
 def sayHello(exchange):

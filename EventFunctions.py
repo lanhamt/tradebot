@@ -1,7 +1,24 @@
 import utils
-from tradebot import buy
-from tradebot import sell
-from tradebot import convert
+
+
+def dummy(prices):
+	return True
+
+
+def bondBuyExec(prices):
+    price = prices.getStockSell('BOND')
+    if price[0] < 1000:
+        order = Order('add', 0, 'BOND', 'BUY', price[0], price[1])
+        print(order.getOrderString(), file=prices.exchange)
+        print(order.getOrderString())
+
+
+def bondSellExec(prices):
+    price = prices.getStockBuy('BOND')
+    if price[0] > 1000:
+        order = Order('add', 0, 'BOND', 'SELL', price[0], price[1])
+        print(order.getOrderString(), file=prices.exchange)
+        print(order.getOrderString())
 
 
 """
@@ -34,7 +51,7 @@ def tradeXLF(trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCprice):
 Determines if buying the XLF components, converting it to an XLF ETF and reselling the ETF is a good idea and executes
 Should be attacked to: ["XLF","BOND","GS","MS","WFC"]
 """
-def XLFtoStockTest(prices):
+def StocktoXFLTest(prices):
 	XLFTuple = prices.getStockSell("XLF")
 	BondTuple = prices.getStockBuy("BOND")
 	GSTuple = prices.getStockBuy("GS")
@@ -82,4 +99,6 @@ def tradeVALBZforVALE(prices, trade_sz, VALEprice, VALBZprice):
 	utils.buy(prices, "VALBZ", trade_sz, VALBZprice)
 	utils.convert(prices, "VALBZ", False, trade_sz)
 	utils.sell(prices, "VALE", trade_sz, VALEprice)
+
+
 
