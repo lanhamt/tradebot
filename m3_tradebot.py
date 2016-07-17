@@ -54,6 +54,9 @@ def trade(exchange):
         m3_utils.processMsg(response, prices)
         if response['type'] == 'reject':
         	print('TRANSACTION ERROR', response)
+        	if 'LIMIT' in response['error']:
+        		# adjust portfolio based on error limit
+        		pass
         lines += 1
 
 
