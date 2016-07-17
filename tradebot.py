@@ -37,13 +37,6 @@ class Order:
         return json.dumps(ret)
 
 
-def status(exchange):
-    print('  getting status update...')
-    while True:
-        sayHello(exchange)
-        time.sleep(1)
-
-
 def bondBuyExec(prices):
     price = prices.getStockSell('BOND')
     if price[0] < 1000:
