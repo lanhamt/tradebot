@@ -24,10 +24,16 @@ class Portfolio:
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
         new_amt = amt + sz
-        if new_amt > 100:
-            new_amt = 100
-        elif new_amt < -100:
-            new_amt = -100
+        if name == 'VALE' or name == 'VALBZ':
+            if new_amt > 10:
+                new_amt = 10
+            elif new_amt < -10:
+                new_amt = -10
+        else:    
+            if new_amt > 100:
+                new_amt = 100
+            elif new_amt < -100:
+                new_amt = -100
         self.stocks[name][0] = new_amt
         numerator = (amt*avg_price + price*sz)
         denom = (amt + sz)
@@ -42,10 +48,16 @@ class Portfolio:
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
         new_amt = amt - sz
-        if new_amt > 100:
-            new_amt = 100
-        elif new_amt < -100:
-            new_amt = -100
+        if name == 'VALE' or name == 'VALBZ':
+            if new_amt > 10:
+                new_amt = 10
+            elif new_amt < -10:
+                new_amt = -10
+        else:    
+            if new_amt > 100:
+                new_amt = 100
+            elif new_amt < -100:
+                new_amt = -100
         self.stocks[name][0] = new_amt
 
 
