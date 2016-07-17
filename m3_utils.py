@@ -34,6 +34,27 @@ class Portfolio:
         self.stocks[name][0] = amt - sz
 
 
+    def convert(self, name, price, sz, direction):
+        if name == 'XLF' and direction == 'BUY':
+            self.sold('BOND', 0, 3 * (sz // 10))
+            self.sold('GS', 0, 2 * (sz // 10))
+            self.sold('MS', 0, 3 * (sz // 10))
+            self.sold('WFC', 0, 2 * (sz // 10))
+            self.bought('XLF', price, sz)
+        elif name == 'XLF' and direction == 'SELL':
+            self.bought('BOND', 0, 3 * (sz // 10))
+            self.bought('GS', 0, 2 * (sz // 10))
+            self.bought('MS', 0, 3 * (sz // 10))
+            self.bought('WFC', 0, 2 * (sz // 10))
+            self.sold('XLF', 0, sz)        
+        elif name == 'VALE' and direction == 'BUY':
+            self.sold('VALBZ', 0, sz)
+            self.bought('VALE', price, sz)
+        elif name == 'VALE' and direction == 'SELL':
+            self.sold('VALE', 0, sz)
+            self.bought('VALBZ', price, sz)
+
+
     def shouldSellBasedOnPrice(self, name, price):
         if self.stocks[name][0] > 0  and self.stocks[name][1] < price:
             return True
@@ -56,7 +77,7 @@ class Portfolio:
             self.sold(msg['symbol'], msg['price'], msg['size'])
             print('ORDER EXECUTED [SELL]', msg)
         else:
-            pass # convert
+            self.convert(msg['symbol'], msg['price'], msg['size'], msg['dir'])
 
 
     def printStats(self):
