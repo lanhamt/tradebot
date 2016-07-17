@@ -44,7 +44,7 @@ def trade(exchange):
 
 def connect():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(('test-exch-segfault', 25000))
+    s.connect(('production', 25000))
     return s.makefile('w+', 1)
 
 
