@@ -36,7 +36,7 @@ def XLFtoStockTest(prices):
 
 	max_trade = min(XLFTuple[1]/10, BondTuple[1]/3, GSTuple[1]/2, MSTuple[1]/3, WFCTuple[1]/2)
 	XLFValue = XLFTuple[0]*max_trade*10
-	BundleValue = sum(BondTuple[0]*max_trade*3, GSTuple[0]*max_trade*2, MSTuple[0]*max_trade*3, WFCTuple[0]*max_trade*2)
+	BundleValue = sum([BondTuple[0]*max_trade*3, GSTuple[0]*max_trade*2, MSTuple[0]*max_trade*3, WFCTuple[0]*max_trade*2])
 	if XLFValue + 100 < BundleValue:
 		tradeXLF(prices, max_trade, XLFTuple[0], BondTuple[0], GSTuple[0], MSTuple[0], WFCTuple[0])
 
@@ -62,7 +62,7 @@ def StocktoXFLTest(prices):
 
 	max_trade = min(XLFTuple[1]/10, BondTuple[1]/3, GSTuple[1]/2, MSTuple[1]/3, WFCTuple[1]/2)
 	XLFValue = XLFTuple[0]*max_trade*10
-	BundleValue = sum(BondTuple[0]*max_trade*3, GSTuple[0]*max_trade*2, MSTuple[0]*max_trade*3, WFCTuple[0]*max_trade*2)
+	BundleValue = sum([BondTuple[0]*max_trade*3, GSTuple[0]*max_trade*2, MSTuple[0]*max_trade*3, WFCTuple[0]*max_trade*2])
 	if BundleValue + 100 < XLFValue:
 		tradeXLFBundle(prices, max_trade, XLFTuple[0], BondTuple[0], GSTuple[0], MSTuple[0], WFCTuple[0])
 
