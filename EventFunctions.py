@@ -1,4 +1,5 @@
 import exp_utils
+from __future__ import print_function
 
 
 def dummy(prices):
