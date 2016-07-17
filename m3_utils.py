@@ -1,18 +1,15 @@
+#!/usr/bin/python
 from __future__ import print_function
 from __future__ import division
 import sys
 import json
 
 
-def parseHelloMessage(message):
-    pass
-
-
 class Portfolio:
     def __init__(self, initial_message):
-        parseHelloMessage(initial_message)
         self.cash = initial_message['cash']
         self.stocks = {}
+        # [amount, avg price]
         self.stocks['BOND'] = [0, 0]
         self.stocks['VALBZ'] = [0, 0]
         self.stocks['VALE'] = [0, 0]
@@ -23,7 +20,6 @@ class Portfolio:
 
 
     def bought(name, price):
-        self.cash = self.cash - price
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
         self.stocks[name][0] = amt + 1
@@ -31,7 +27,6 @@ class Portfolio:
 
 
     def sold(name, price)
-        self.cash = self.cash + price
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
         self.stocks[name][0] = amt - 1
@@ -50,13 +45,25 @@ class Portfolio:
         return False
 
 
-    def getStats(self):
+    def update(self, msg):
+        if msg['dir'] == 'BUY':
+            self.bought(msg['symbol'], msg['price'], msg['size'])
+            print('ORDER EXECUTED [BUY]', msg)
+        elif msg['dir'] == 'SELL':
+            self.sold(msg['symbol'], msg['price'], msg['size'])
+            print('ORDER EXECUTED [SELL]', msg)
+        else:
+            pass # convert
+
+
+    def printStats(self):
         ret = {}
         ret['cash'] = self.cash
         positions = {}
-
-
-
+        for stock in self.stocks:
+            positions[stock] = self.stocks[stock][0]
+        ret['positions'] = positions
+        return json.dumps(ret)
 
 
 def buy(prices, name, size, price):
@@ -209,3 +216,5 @@ def processBookJSON(msg, prices):
 def processMsg(msg, prices):
     if msg['type'] == 'book':
         processBookJSON(msg, prices)
+    elif msg['type'] == 'fill':
+        prices.portfolio.update(msg)
