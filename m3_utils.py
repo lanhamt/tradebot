@@ -71,7 +71,7 @@ class Portfolio:
             return True
         return False
 
-    def getAmt(name):
+    def getAmt(self, name):
         return abs(self.stocks[name][0])
 
     def update(self, msg):
