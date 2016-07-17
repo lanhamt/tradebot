@@ -54,7 +54,7 @@ class Portfolio:
         ret = {}
         ret['cash'] = self.cash
         positions = {}
-        
+
 
 
 
@@ -204,6 +204,7 @@ def processBookJSON(msg, prices):
         bestSellPrice = sorted(sellPrices, key=lambda price: price[0])[0]
         prices.setStockSell(name, bestSellPrice)
     prices.checkEvents(name)
+
 
 def processMsg(msg, prices):
     if msg['type'] == 'book':

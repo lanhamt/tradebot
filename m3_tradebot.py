@@ -6,10 +6,10 @@ import socket
 import time
 import json
 import thread
-import exp_utils
+import m3_utils
 import random
-from exp_utils import Order
-from EventFunctions import *
+from m3_utils import Order
+from m3_event_functions import *
 
 
 def portfolioStats(prices):
@@ -20,11 +20,11 @@ def portfolioStats(prices):
 
 
 def registerAlgos(prices):
-    prices.registerEvent(exp_utils.Event(['BOND'], dummy, bondBuyExec))
-    prices.registerEvent(exp_utils.Event(['BOND'], dummy, bondSellExec))
-    prices.registerEvent(exp_utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, XLFtoStockTest))
-    prices.registerEvent(exp_utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, StocktoXFLTest))
-    prices.registerEvent(exp_utils.Event(['VALE', 'VALBZ'], dummy, tradeVALEAndVALBZ))
+    prices.registerEvent(m3_utils.Event(['BOND'], dummy, bondBuyExec))
+    prices.registerEvent(m3_utils.Event(['BOND'], dummy, bondSellExec))
+    prices.registerEvent(m3_utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, XLFtoStockTest))
+    prices.registerEvent(m3_utils.Event(["XLF","BOND","GS","MS","WFC"], dummy, StocktoXFLTest))
+    prices.registerEvent(m3_utils.Event(['VALE', 'VALBZ'], dummy, tradeVALEAndVALBZ))
 
 
 def sayHello(exchange):
@@ -39,14 +39,14 @@ def trade(exchange):
     global flowLock
     initial_balance = sayHello(exchange)
 
-    prices = exp_utils.Prices(exchange, initial_balance)
+    prices = m3_utils.Prices(exchange, initial_balance)
     registerAlgos(prices)
 
     thread.start_new_thread(portfolioStats, (prices,))
     while True:
         response = exchange.readline().strip()
         response = json.loads(response)
-        exp_utils.processMsg(response, prices)
+        m3_utils.processMsg(response, prices)
         if response['type'] != 'book' and response['type'] != 'trade':
             print(response)
 
