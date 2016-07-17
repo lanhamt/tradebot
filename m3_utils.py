@@ -49,11 +49,11 @@ class Portfolio:
             return True
         return False
 
+    def getAmt(name):
+        return self.stocks[name][0]
 
-    def getStats(self):
-        ret = {}
-        ret['cash'] = self.cash
-        positions = {}
+    def getAvgPrice(name):
+        return self.stocks[name][1]
 
 
 
@@ -176,7 +176,7 @@ class Prices:
         if stock.name in self.stockEvents:
             for event in self.stockEvents[stock.name]:
                 if event.testFunc(self):
-                    event.actionFunc(self)
+                    event.actionFunc(self, name)
 
 
     def __init__(self, exchange, initial_message):

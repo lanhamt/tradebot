@@ -8,7 +8,7 @@ def dummy(prices):
     return True
 
 
-def bondBuyExec(prices):
+def bondBuyExec(prices, name):
     price = prices.getStockSell('BOND')
     if price[0] < 1000:
         order = Order('add', 0, 'BOND', 'BUY', price[0], price[1])
@@ -16,7 +16,7 @@ def bondBuyExec(prices):
         print(order.getOrderString())
 
 
-def bondSellExec(prices):
+def bondSellExec(prices, name):
     price = prices.getStockBuy('BOND')
     if price[0] > 1000:
         order = Order('add', 0, 'BOND', 'SELL', price[0], price[1])
@@ -28,7 +28,7 @@ def bondSellExec(prices):
 Determines if buying XLF, converting it to the bundle and reselling the bundle is a good idea and executes
 Should be attacked to: ["XLF","BOND","GS","MS","WFC"]
 """
-def XLFtoStockTest(prices):
+def XLFtoStockTest(prices, name):
     XLFTuple = prices.getStockBuy("XLF")
     BondTuple = prices.getStockSell("BOND")
     GSTuple = prices.getStockSell("GS")
@@ -54,7 +54,7 @@ def tradeXLF(trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCprice):
 Determines if buying the XLF components, converting it to an XLF ETF and reselling the ETF is a good idea and executes
 Should be attacked to: ["XLF","BOND","GS","MS","WFC"]
 """
-def StocktoXFLTest(prices):
+def StocktoXFLTest(prices, name):
     XLFTuple = prices.getStockSell("XLF")
     BondTuple = prices.getStockBuy("BOND")
     GSTuple = prices.getStockBuy("GS")
@@ -80,7 +80,7 @@ def tradeXLFBundle(prices, trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCp
 """
 Checks for a possible transaction between VALE and VALBZ and executes it
 """
-def tradeVALEAndVALBZ(prices):
+def tradeVALEAndVALBZ(prices, name):
     VALEBuyTuple = prices.getStockSell("VALE")
     VALESellTuple = prices.getStockBuy("VALE")
     VALBZBuyTuple = prices.getStockSell("VALBZ")
@@ -104,4 +104,15 @@ def tradeVALBZforVALE(prices, trade_sz, VALEprice, VALBZprice):
     m3_utils.sell(prices, "VALE", trade_sz, VALEprice)
 
 
+"""
+Liquidates left over stock
+Should be attached to ['BOND','VALBZ','VALE','GS','MS','WFC','XLF']
+"""
 
+def liquidate(prices, name):
+    sellPrice = prices.getStockBuy(name)
+    buyPrice = prices.getStockSell(name)
+    if prices.portfolio.shouldSellBasedOnPrice(name, sellPrice):
+        m3_utils.sell(prices, name, prices.portfolio.getAmt(name), sellPrice)
+    if prices.portfolio.shouldBuyBasedOnPrice(name, buyPrice):
+        m3_utils.buy(prices, name, prices.portfolio.getAmt(name), buyPrice)
