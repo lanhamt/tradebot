@@ -34,9 +34,6 @@ def trade(exchange):
 
     prices = exp_utils.Prices(exchange)
     registerAlgos(prices)
-
-    id_no = 0
-    thread.start_new_thread(status, (exchange, ))
     while True:
         response = exchange.readline().strip()
         response = json.loads(response)
@@ -47,7 +44,7 @@ def trade(exchange):
 
 def connect():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(('production', 25000))
+    s.connect(('test-exch-segfault', 25000))
     return s.makefile('w+', 1)
 
 

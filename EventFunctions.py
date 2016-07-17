@@ -1,5 +1,6 @@
-import exp_utils
 from __future__ import print_function
+import exp_utils
+import sys
 
 
 def dummy(prices):
@@ -31,7 +32,7 @@ def XLFtoStockTest(prices):
 	BondTuple = prices.getStockSell("BOND")
 	GSTuple = prices.getStockSell("GS")
 	MSTuple = prices.getStockSell("MS")
-	WFCTuple prices.getStockSell("WFC")
+	WFCTuple = prices.getStockSell("WFC")
 
 	max_trade = min(XLFTuple[1]/10, BondTuple[1]/3, GSTuple[1]/2, MSTuple[1]/3, WFCTuple[1]/2)
 	XLFValue = XLFTuple[0]*max_trade*10
