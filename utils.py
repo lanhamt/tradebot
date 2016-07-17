@@ -1,6 +1,34 @@
 import sys
 
 
+# global var to keep track of last order id
+order_id = 0
+
+
+class Order:
+    def __init__(self, Type=None, Order_Id=None, Symbol=None, Dir=None, Price=None, Size=None):
+        global order_id
+        Order_Id = order_id
+        order_id += 1
+        self.Type = Type
+        self.Order_Id = Order_Id
+        self.Symbol = Symbol
+        self.Dir = Dir
+        self.Price = Price
+        self.Size = Size
+
+
+    def getOrderString(self):
+        ret = {}
+        if self.Type: ret['type'] = self.Type
+        if self.Order_Id: ret['order_id'] = self.Order_Id
+        if self.Symbol: ret['symbol'] = self.Symbol
+        if self.Dir: ret['dir'] = self.Dir
+        if self.Price: ret['price'] = self.Price
+        if self.Size: ret['size'] = self.Size
+        return json.dumps(ret)
+
+
 class Stock:
 	def __init__(self, name, ETF=False, members=[], sellPrice=(float('inf'), 0), buyPrice=(0, 0)):
 		self.name = name
