@@ -1,20 +1,30 @@
 import sys
-from tradebot import order_id
-
-def buy(name, size):
-	order = Order('')
 
 
-def sell(name, size):
-	pass
+def buy(prices, name, size, price):
+    order = Order('add', 0, name, 'BUY', price, size)
+    print(order.getOrderString(), file=prices.exchange)
+    print('ORDER SUBMITTED [BUY]: ', order.getOrderString())
 
 
-def convert(name, is_buy, size):
-	pass
+def sell(prices, name, size, price):
+    order = Order('add', 0, name, 'SELL', price, size)
+    print(order.getOrderString(), file=prices.exchange)
+    print('ORDER SUBMITTED [SELL]', order.getOrderString())
+
+
+def convert(prices, name, is_buy, size):
+    order = Order('convert', 0, name, 'BUY', Size=size)
+    print(order.getOrderString(), file=prices.exchange)
+    print('ORDER SUBMITTED [CONVERT]', order.getOrderString())
+
+
+# global var to keep track of last order id
+order_id = 0
 
 
 class Order:
-    def __init__(self, Type='', Order_Id=0, Symbol='', Dir='', Price='', Size=''):
+    def __init__(self, Type=None, Order_Id=None, Symbol=None, Dir=None, Price=None, Size=None):
         global order_id
         Order_Id = order_id
         order_id += 1
@@ -28,12 +38,12 @@ class Order:
 
     def getOrderString(self):
         ret = {}
-        ret['type'] = self.Type
-        ret['order_id'] = self.Order_Id
-        ret['symbol'] = self.Symbol
-        ret['dir'] = self.Dir
-        ret['price'] = self.Price
-        ret['size'] = self.Size
+        if self.Type: ret['type'] = self.Type
+        if self.Order_Id: ret['order_id'] = self.Order_Id
+        if self.Symbol: ret['symbol'] = self.Symbol
+        if self.Dir: ret['dir'] = self.Dir
+        if self.Price: ret['price'] = self.Price
+        if self.Size: ret['size'] = self.Size
         return json.dumps(ret)
 
 

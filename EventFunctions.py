@@ -1,5 +1,26 @@
 import utils
 
+
+def dummy(prices):
+	return True
+
+
+def bondBuyExec(prices):
+    price = prices.getStockSell('BOND')
+    if price[0] < 1000:
+        order = Order('add', 0, 'BOND', 'BUY', price[0], price[1])
+        print(order.getOrderString(), file=prices.exchange)
+        print(order.getOrderString())
+
+
+def bondSellExec(prices):
+    price = prices.getStockBuy('BOND')
+    if price[0] > 1000:
+        order = Order('add', 0, 'BOND', 'SELL', price[0], price[1])
+        print(order.getOrderString(), file=prices.exchange)
+        print(order.getOrderString())
+
+
 """
 Determines if buying XLF, converting it to the bundle and reselling the bundle is a good idea and executes
 Should be attacked to: ["XLF","BOND","GS","MS","WFC"]
@@ -30,12 +51,12 @@ def tradeXLF(trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCprice):
 Determines if buying the XLF components, converting it to an XLF ETF and reselling the ETF is a good idea and executes
 Should be attacked to: ["XLF","BOND","GS","MS","WFC"]
 """
-def XLFtoStockTest(prices):
+def StocktoXFLTest(prices):
 	XLFTuple = prices.getStockSell("XLF")
 	BondTuple = prices.getStockBuy("BOND")
 	GSTuple = prices.getStockBuy("GS")
 	MSTuple = prices.getStockBuy("MS")
-	WFCTuple prices.getStockBuy("WFC")
+	WFCTuple = prices.getStockBuy("WFC")
 
 	max_trade = min(XLFTuple[1]/10, BondTuple[1]/3, GSTuple[1]/2, MSTuple[1]/3, WFCTuple[1]/2)
 	XLFValue = XLFTuple[0]*max_trade*10
@@ -73,7 +94,11 @@ def tradeVALEforVALBZ(prices, trade_sz, VALEprice, VALBZprice):
 	utils.convert(prices, "VALE", False, trade_sz)
 	utils.sell(prices, "VALBZ", trade_sz, VALBZprice)
 
+
 def tradeVALBZforVALE(prices, trade_sz, VALEprice, VALBZprice):
 	utils.buy(prices, "VALBZ", trade_sz, VALBZprice)
 	utils.convert(prices, "VALBZ", False, trade_sz)
 	utils.sell(prices, "VALE", trade_sz, VALEprice)
+
+
+
