@@ -19,7 +19,7 @@ class Portfolio:
         self.stocks['XLF'] = [0, 0]
 
 
-    def bought(name, price, sz):
+    def bought(self, name, price, sz):
         self.cash = self.cash - price*sz
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
@@ -27,25 +27,25 @@ class Portfolio:
         self.stocks[name][1] = (amt*avg_price + price*sz)/(amt + sz)
 
 
-    def sold(name, price, sz)
+    def sold(self, name, price, sz):
         self.cash = self.cash + price*sz
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
         self.stocks[name][0] = amt - sz
 
 
-    def shouldSellBasedOnPrice(name, price):
+    def shouldSellBasedOnPrice(self, name, price):
         if self.stocks[name][0] > 0  and self.stocks[name][1] < price:
             return True
         return False
 
 
-    def shouldBuyBasedOnPrice(name, price):
+    def shouldBuyBasedOnPrice(self, name, price):
         if self.stocks[name][0] < 0  and self.stocks[name][1] > price:
             return True
         return False
 
-    def getAmt(name):
+    def getAmt(self, name):
         return self.stocks[name][0]
 
     def update(self, msg):
@@ -69,7 +69,7 @@ class Portfolio:
         return json.dumps(ret)
     
 
-    def getAvgPrice(name):
+    def getAvgPrice(self, name):
         return self.stocks[name][1]
 
 
