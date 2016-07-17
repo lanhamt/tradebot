@@ -27,7 +27,12 @@ class Portfolio:
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
         self.stocks[name][0] = amt + sz
-        self.stocks[name][1] = (amt*avg_price + price*sz)/(amt + sz)
+        numerator = (amt*avg_price + price*sz)
+        denom = (amt + sz)
+        if denom == 0:
+            self.stocks[name][1] = 0
+        else:
+            self.stocks[name][1] = (amt*avg_price + price*sz)/(amt + sz)
 
 
     def sold(name, price, sz)
@@ -49,7 +54,7 @@ class Portfolio:
         return False
 
     def getAmt(name):
-        return self.stocks[name][0]
+        return abs(self.stocks[name][0])
 
     def getAvgPrice(name):
         return self.stocks[name][1]
