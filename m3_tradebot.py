@@ -52,6 +52,8 @@ def trade(exchange):
         response = exchange.readline().strip()
         response = json.loads(response)
         m3_utils.processMsg(response, prices)
+        if response['type'] == 'reject':
+        	print('TRANSACTION ERROR', response)
         lines += 1
 
 
