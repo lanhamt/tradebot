@@ -42,7 +42,7 @@ def XLFtoStockTest(prices, name):
     if XLFValue + 100 < BundleValue:
         tradeXLF(prices, max_trade, XLFTuple[0], BondTuple[0], GSTuple[0], MSTuple[0], WFCTuple[0])
 
-def tradeXLF(trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCprice):
+def tradeXLF(prices, trade_sz, XFLprice, BONDprice, GSprice, MSprice, WFCprice):
     m3_utils.buy(prices, "XLF", trade_sz*10, XFLprice)
     m3_utils.convert(prices, "XLF", False, trade_sz*10) #True = BUY
     m3_utils.sell(prices, "BOND", trade_sz*3, BONDprice)
