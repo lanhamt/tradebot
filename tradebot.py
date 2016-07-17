@@ -5,7 +5,7 @@ import sys
 import socket
 import time
 import json
-import threading
+import thread
 import utils
 import random
 
@@ -89,7 +89,6 @@ def trade(exchange):
     registerAlgos(prices)
 
     id_no = 0
-    threading.Thread(target=status, args=(exchange, ))
     while True:
         response = exchange.readline().strip()
         response = json.loads(response)
