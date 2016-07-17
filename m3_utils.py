@@ -22,20 +22,20 @@ class Portfolio:
         self.stocks['XLF'] = [0, 0]
 
 
-    def bought(name, price):
-        self.cash = self.cash - price
+    def bought(name, price, sz):
+        self.cash = self.cash - price*sz
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
-        self.stocks[name][0] = amt + 1
-        self.stocks[name][1] = (amt*avg_price + price)/(amt + 1)
+        self.stocks[name][0] = amt + sz
+        self.stocks[name][1] = (amt*avg_price + price*sz)/(amt + sz)
 
 
-    def sold(name, price)
-        self.cash = self.cash + price
+    def sold(name, price, sz)
+        self.cash = self.cash + price*sz
         amt = self.stocks[name][0]
         avg_price = self.stocks[name][1]
-        self.stocks[name][0] = amt - 1
-        self.stocks[name][1] = ((amt-1)*avg_price)/(amt - 1)
+        self.stocks[name][0] = amt - sz
+        self.stocks[name][1] = ((amt-sz)*avg_price)/(amt - sz)
 
 
     def shouldSellBasedOnPrice(name, price):
