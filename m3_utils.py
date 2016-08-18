@@ -124,13 +124,13 @@ class Portfolio:
 
 
 def buy(prices, name, size, price):
-    order = Order('add', 0, name, 'SELL', price, size)
+    order = Order('add', 0, name, 'BUY', price, size)
     print(order.getOrderString(), file=prices.exchange)
     print('ORDER SUBMITTED [BUY]: ', order.getOrderString())
 
 
 def sell(prices, name, size, price):
-    order = Order('add', 0, name, 'BUY', price, size)
+    order = Order('add', 0, name, 'SELL', price, size)
     print(order.getOrderString(), file=prices.exchange)
     print('ORDER SUBMITTED [SELL]', order.getOrderString())
 
